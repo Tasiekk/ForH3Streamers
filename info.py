@@ -7,6 +7,7 @@ how many points they have and what color are they
 
 town_list = ['Castle','Rampart','Tower','Inferno','Necropolis','Dungeon','Stronghold','Fortress','Conflux','Cove']
 
+'''
 print('Which template do you play?')
 template=input()
 print("What is the name of the RED player?")
@@ -34,4 +35,5 @@ while blue_town not in town_list:
     blue_town = input()
 print(template + " |", red ,"(" + red_town + ',', str(red_money) + ")", "vs", 
       blue ,"(" + blue_town + ',',str(blue_money)+ ")")
+'''
 
