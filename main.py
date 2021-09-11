@@ -6,16 +6,19 @@ how many points they have and what color are they
 """
 import tkinter as tk
 import info
-
-#Creating the app environment
+from tkinter import messagebox
+from tkinter import font
+#Creating the GUI environment
 root = tk.Tk()
 root.title("For Heroes 3 Streamers")
 
-#App
-
+#Font settings
+right26=font.Font(family="Righteous", size=26, slant="italic")
+right20=font.Font(family="Righteous", size=20)
 
 #Background image
 bg = tk.PhotoImage(file="h3background.png")
+bg_plot = tk.PhotoImage(file="h3background_plot.png")
 bg_canvas = tk.Canvas(root, width=576, height=240)
 bg_canvas.grid(row=0, column=0, rowspan=6, columnspan=4)
 bg_canvas.create_image(0,0,image=bg, anchor='nw')
@@ -83,14 +86,44 @@ redMoneyEntry_window = bg_canvas.create_window(415,120, anchor="nw", window=blue
 
 #Submit button
 def submit():
-    submitEntry=tk.Entry(root, width=88)
-    submitEntry_window= bg_canvas.create_window(25,205, anchor="nw", window=submitEntry)
-    submitEntry.insert(0, templateEntry.get() + " | " + redEntry.get() + " (red, " + redTown.get() + " , " + 
+    try:
+        if int(blueMoneyEntry.get())!=(-1)*int(redMoneyEntry.get()):
+            messagebox.showerror("Error!","Make sure that gold values are opposite")
+        else:
+            submitEntry=tk.Entry(root, width=88)
+            submitEntry_window = bg_canvas.create_window(25,205, anchor="nw", window=submitEntry)
+            submitEntry.insert(0, templateEntry.get() + " | " + redEntry.get() + " (red, " + redTown.get() + " , " + 
                          redMoneyEntry.get() +")" + " vs " + blueEntry.get() + " (blue, " + blueTown.get() + " , " + 
                          blueMoneyEntry.get() + ")")
-    
+            bg_canvas.delete('all')
+            bg_canvas.config(width=576)                                                #PLACING TOWNS IMAGES ON THE CANVAS
+            bg_canvas.config(height=60)
+            bg_canvas.create_image(0,0,image=bg_plot, anchor='nw')
+            redTownImage=tk.PhotoImage(file = redTown.get() + ".png")
+            redTownImageLabel = tk.Label(root, image=redTownImage)
+            redTownImageLabel.photo = redTownImage
+            redTownImageLabel_window = bg_canvas.create_window(30,28, anchor='nw', window=redTownImageLabel)
+            redName = bg_canvas.create_text(134,13, text=redEntry.get(), font=right20, 
+                                            fill="white", width=180, justify=tk.CENTER)
+            redGold = bg_canvas.create_text(155,45, text=redMoneyEntry.get(), font=right26, 
+                                            fill="white", width=180, justify=tk.CENTER)
+            blueName = bg_canvas.create_text(462,13, text=blueEntry.get(), font=right20, 
+                                            fill="white", width=180, justify=tk.CENTER)
+            blueGold = bg_canvas.create_text(450,45, text=blueMoneyEntry.get(), font=right26, 
+                                            fill="white", width=180, justify=tk.CENTER)
+            template = bg_canvas.create_text(288,45, text=templateEntry.get(), font=right20, 
+                                            fill="white", width=180, justify=tk.CENTER)
+            blueTownImage=tk.PhotoImage(file = blueTown.get() + ".png")
+            blueTownImageLabel = tk.Label(root, image=blueTownImage)
+            blueTownImageLabel.photo = blueTownImage
+            blueTownImageLabel_window = bg_canvas.create_window(500,28, anchor='nw', window=blueTownImageLabel)
+    except ValueError:
+        messagebox.showerror("Error!","You've added wrong gold value")
+
+   
     
 submitButton=tk.Button(root, text="Submit", command=submit, width=20, height=2)#.grid(row=4, column=1, columnspan=2, padx=20, pady=10)
 submitButton_window= bg_canvas.create_window(216,155, anchor="nw", window=submitButton)
 
+root.resizable(False,False)
 root.mainloop()
