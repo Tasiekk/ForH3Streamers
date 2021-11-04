@@ -11,10 +11,11 @@ from tkinter import font
 #Creating the GUI environment
 root = tk.Tk()
 root.title("For Heroes 3 Streamers")
+root.iconbitmap('h3forstreamers.ico')
 
 #Font settings
-right26=font.Font(family="Righteous", size=26, slant="italic")
-right20=font.Font(family="Righteous", size=20)
+right26=font.Font(family="Righteous", size=23, slant="italic")
+right20=font.Font(family="Righteous", size=16)
 
 #Background image
 bg = tk.PhotoImage(file="h3background.png")
@@ -100,23 +101,33 @@ def submit():
             bg_canvas.config(height=60)
             bg_canvas.create_image(0,0,image=bg_plot, anchor='nw')
             redTownImage=tk.PhotoImage(file = redTown.get() + ".png")
-            redTownImageLabel = tk.Label(root, image=redTownImage)
+            redTownImageLabel = tk.Label(root, image=redTownImage, borderwidth=0)
             redTownImageLabel.photo = redTownImage
-            redTownImageLabel_window = bg_canvas.create_window(30,28, anchor='nw', window=redTownImageLabel)
+            redTownImageLabel_window = bg_canvas.create_window(32,30, anchor='nw', window=redTownImageLabel)
+            redNameShadow = bg_canvas.create_text(136,15, text=redEntry.get(), font=right20, 
+                                            fill="black", width=250, justify=tk.CENTER)
             redName = bg_canvas.create_text(134,13, text=redEntry.get(), font=right20, 
-                                            fill="white", width=180, justify=tk.CENTER)
+                                            fill="white", width=250, justify=tk.CENTER)
+            redGoldShadow = bg_canvas.create_text(157,47, text=redMoneyEntry.get(), font=right26, 
+                                            fill="black", width=180, justify=tk.CENTER)
             redGold = bg_canvas.create_text(155,45, text=redMoneyEntry.get(), font=right26, 
                                             fill="white", width=180, justify=tk.CENTER)
+            blueNameShadow = bg_canvas.create_text(464,15, text=blueEntry.get(), font=right20, 
+                                            fill="black", width=250, justify=tk.CENTER)
             blueName = bg_canvas.create_text(462,13, text=blueEntry.get(), font=right20, 
-                                            fill="white", width=180, justify=tk.CENTER)
+                                            fill="white", width=250, justify=tk.CENTER)
+            blueGoldShadow = bg_canvas.create_text(452,47, text=blueMoneyEntry.get(), font=right26, 
+                                            fill="black", width=180, justify=tk.CENTER)
             blueGold = bg_canvas.create_text(450,45, text=blueMoneyEntry.get(), font=right26, 
                                             fill="white", width=180, justify=tk.CENTER)
+            templateShadow = bg_canvas.create_text(290,47, text=templateEntry.get(), font=right20, 
+                                            fill="black", width=180, justify=tk.CENTER)
             template = bg_canvas.create_text(288,45, text=templateEntry.get(), font=right20, 
                                             fill="white", width=180, justify=tk.CENTER)
             blueTownImage=tk.PhotoImage(file = blueTown.get() + ".png")
-            blueTownImageLabel = tk.Label(root, image=blueTownImage)
+            blueTownImageLabel = tk.Label(root, image=blueTownImage, borderwidth=0)
             blueTownImageLabel.photo = blueTownImage
-            blueTownImageLabel_window = bg_canvas.create_window(500,28, anchor='nw', window=blueTownImageLabel)
+            blueTownImageLabel_window = bg_canvas.create_window(498,30, anchor='nw', window=blueTownImageLabel)
     except ValueError:
         messagebox.showerror("Error!","You've added wrong gold value")
 
