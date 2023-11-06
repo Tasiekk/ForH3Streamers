@@ -6,6 +6,7 @@ how many points they have and what color are they
 """
 import tkinter as tk
 import info
+import cmath
 from tkinter import messagebox
 from tkinter import font
 #Creating the GUI environment
@@ -85,6 +86,13 @@ blueMoneyEntry=tk.Entry(root, width=23)
 redMoneyEntry_window = bg_canvas.create_window(415,120, anchor="nw", window=blueMoneyEntry)
 #blueMoneyEntry.grid(row=3, column=3, padx=10, pady=10)
 
+#Responsible size of text
+def size_text(nickName):
+    if int(250/len(nickName)) >= 16:
+        return 16
+    else:
+        return int(250/len(nickName))
+
 #Submit button
 def submit():
     try:
@@ -104,17 +112,17 @@ def submit():
             redTownImageLabel = tk.Label(root, image=redTownImage, borderwidth=0)
             redTownImageLabel.photo = redTownImage
             redTownImageLabel_window = bg_canvas.create_window(32,30, anchor='nw', window=redTownImageLabel)
-            redNameShadow = bg_canvas.create_text(136,15, text=redEntry.get(), font=right20, 
+            redNameShadow = bg_canvas.create_text(136,15, text=redEntry.get(), font=font.Font(family="Righteous", size=size_text(redEntry.get())), 
                                             fill="black", width=250, justify=tk.CENTER)
-            redName = bg_canvas.create_text(134,13, text=redEntry.get(), font=right20, 
+            redName = bg_canvas.create_text(134,13, text=redEntry.get(), font=font.Font(family="Righteous", size=size_text(redEntry.get())), 
                                             fill="white", width=250, justify=tk.CENTER)
             redGoldShadow = bg_canvas.create_text(157,47, text=redMoneyEntry.get(), font=right26, 
                                             fill="black", width=180, justify=tk.CENTER)
             redGold = bg_canvas.create_text(155,45, text=redMoneyEntry.get(), font=right26, 
                                             fill="white", width=180, justify=tk.CENTER)
-            blueNameShadow = bg_canvas.create_text(464,15, text=blueEntry.get(), font=right20, 
+            blueNameShadow = bg_canvas.create_text(464,15, text=blueEntry.get(), font=font.Font(family="Righteous", size=size_text(blueEntry.get())), 
                                             fill="black", width=250, justify=tk.CENTER)
-            blueName = bg_canvas.create_text(462,13, text=blueEntry.get(), font=right20, 
+            blueName = bg_canvas.create_text(462,13, text=blueEntry.get(), font=font.Font(family="Righteous", size=size_text(blueEntry.get())), 
                                             fill="white", width=250, justify=tk.CENTER)
             blueGoldShadow = bg_canvas.create_text(452,47, text=blueMoneyEntry.get(), font=right26, 
                                             fill="black", width=180, justify=tk.CENTER)
