@@ -27,21 +27,28 @@ bg_canvas = tk.Canvas(root, width=576, height=240)
 bg_canvas.grid(row=0, column=0, rowspan=6, columnspan=4)
 bg_canvas.create_image(0,0,image=bg, anchor='nw')
 
+
 def newGame():
     bg_canvas.delete('all')
     bg_canvas.config(width=576)                                                #PLACING TOWNS IMAGES ON THE CANVAS
     bg_canvas.config(height=240)
     bg_canvas.create_image(0,0,image=bg, anchor='nw')
     #Title
-    titleLabel=tk.Label(root, text="This is an app for H3 streamers", font="Righteous", width=24)
+    titleLabel= bg_canvas.create_text(150,30, text="Complete the game information:", font=font.Font(family="Righteous", size=10), 
+                                    fill="white", width=350, justify=tk.CENTER)
+    #titleLabel=tk.Label(root, text="Complete the game information:", font="Righteous", width=24)
     #titleLabel.grid(row=0, column=0, padx=10, pady=10, columnspan=2)
-    titleLabel_window = bg_canvas.create_window(25,20, anchor="nw", window=titleLabel)
+    #titleLabel_window = bg_canvas.create_window(25,20, anchor="nw", window=titleLabel)
     
     #Template
     templateLabel=tk.Label(root, text="Template: ", width=15)
     #templateLabel.grid(row=0, column=2, padx=10, pady=10)
     templateLabel_window = bg_canvas.create_window(300,23, anchor="nw", window=templateLabel)
     templateEntry=tk.Entry(root, width=23)
+    try:
+        templateEntry.insert(0, PlayerInfo[6])
+    except Exception:
+        pass
     templateEntry_window = bg_canvas.create_window(415,24, anchor="nw", window=templateEntry)
     #templateEntry.grid(row=0, column=3, padx=10, pady=10)
     
@@ -50,14 +57,20 @@ def newGame():
     redLabel_window = bg_canvas.create_window(25,50, anchor="nw", window=redLabel)
     #redLabel.grid(row=1, column=0, padx=10, pady=10)
     redEntry=tk.Entry(root, width=23)
+    try:
+        redEntry.insert(0, PlayerInfo[0])
+    except Exception:
+        pass
     redEntry_window = bg_canvas.create_window(140,51, anchor="nw", window=redEntry)
     #redEntry.grid(row=1, column=1, padx=10, pady=10)
-    
     redTownLabel=tk.Label(root, text="Picked town: ", width=15, height=2)
     #redTownLabel.grid(row=2, column=0, padx=10, pady=10)
     redTownLabel_window = bg_canvas.create_window(25,77, anchor="nw", window=redTownLabel)
     redTown = tk.StringVar() #defining the value chosen from the dropdown
-    redTown.set(info.town_list[0])
+    try:
+        redTown.set(PlayerInfo[2])
+    except Exception:
+        redTown.set(info.town_list[0])
     redTownDrop=tk.OptionMenu(root, redTown, *info.town_list)#.grid(row=2, column=1, padx=10, pady=10)
     redTownDrop.config(width=16)
     redTownDrop_window = bg_canvas.create_window(140,79, anchor="nw", window=redTownDrop)
@@ -66,6 +79,10 @@ def newGame():
     redMoneyLabel_window = bg_canvas.create_window(25,119, anchor="nw", window=redMoneyLabel)
     #redMoneyLabel.grid(row=3, column=0, padx=10, pady=10)
     redMoneyEntry=tk.Entry(root, width=23)
+    try:
+        redMoneyEntry.insert(0, PlayerInfo[1])
+    except Exception:
+        pass
     redMoneyEntry_window = bg_canvas.create_window(140,120, anchor="nw", window=redMoneyEntry)
     #redMoneyEntry.grid(row=3, column=1, padx=10, pady=10)
     
@@ -74,6 +91,10 @@ def newGame():
     redLabel_window = bg_canvas.create_window(300,50, anchor="nw", window=blueLabel)
     #blueLabel.grid(row=1, column=2, padx=10, pady=10)
     blueEntry=tk.Entry(root, width=23)
+    try:
+        blueEntry.insert(0, PlayerInfo[3])
+    except Exception:
+        pass
     redEntry_window = bg_canvas.create_window(415,51, anchor="nw", window=blueEntry)
     #blueEntry.grid(row=1, column=3, padx=10, pady=10)
     
@@ -81,7 +102,10 @@ def newGame():
     blueTownLabel_window = bg_canvas.create_window(300,77, anchor="nw", window=blueTownLabel)
     #blueTownLabel.grid(row=2, column=2, padx=10, pady=10)
     blueTown = tk.StringVar() #defining the value chosen from the dropdown
-    blueTown.set(info.town_list[0])
+    try:
+        blueTown.set(PlayerInfo[5])
+    except Exception:
+        blueTown.set(info.town_list[0])
     blueTownDrop=tk.OptionMenu(root, blueTown, *info.town_list)#.grid(row=2, column=3, padx=10, pady=10
     blueTownDrop.config(width=16)
     blueTownDrop_window = bg_canvas.create_window(415,79, anchor="nw", window=blueTownDrop)
@@ -90,6 +114,10 @@ def newGame():
     blueMoneyLabel_window = bg_canvas.create_window(300,119, anchor="nw", window=blueMoneyLabel)
     #blueMoneyLabel.grid(row=3, column=2, padx=10, pady=10)
     blueMoneyEntry=tk.Entry(root, width=23)
+    try:
+        blueMoneyEntry.insert(0, PlayerInfo[4])
+    except Exception:
+        pass
     redMoneyEntry_window = bg_canvas.create_window(415,120, anchor="nw", window=blueMoneyEntry)
     #blueMoneyEntry.grid(row=3, column=3, padx=10, pady=10)
     
@@ -108,9 +136,9 @@ def newGame():
             else:
                 submitEntry=tk.Entry(root, width=88)
                 submitEntry_window = bg_canvas.create_window(25,205, anchor="nw", window=submitEntry)
-                submitEntry.insert(0, templateEntry.get() + " | " + redEntry.get() + " (red, " + redTown.get() + " , " + 
-                             redMoneyEntry.get() +")" + " vs " + blueEntry.get() + " (blue, " + blueTown.get() + " , " + 
-                             blueMoneyEntry.get() + ")")
+               # submitEntry.insert(0, templateEntry.get() + " | " + redEntry.get() + " (red, " + redTown.get() + " , " + 
+               #redMoneyEntry.get() +")" + " vs " + blueEntry.get() + " (blue, " + blueTown.get() + " , " + 
+                #             blueMoneyEntry.get() + ")")
                 bg_canvas.delete('all')
                 bg_canvas.config(width=576)                                                #PLACING TOWNS IMAGES ON THE CANVAS
                 bg_canvas.config(height=60)
@@ -143,13 +171,26 @@ def newGame():
                 blueTownImageLabel = tk.Label(root, image=blueTownImage, borderwidth=0)
                 blueTownImageLabel.photo = blueTownImage
                 blueTownImageLabel_window = bg_canvas.create_window(498,30, anchor='nw', window=blueTownImageLabel)
+                #This variable information about Player for default value to change if we choose button "Edit"
+                global PlayerInfo
+                PlayerInfo=["","","","","","",""]
+                PlayerInfo[0]=redEntry.get()
+                PlayerInfo[1]=redMoneyEntry.get()
+                PlayerInfo[2]=redTown.get()
+                PlayerInfo[3]=blueEntry.get()
+                PlayerInfo[4]=blueMoneyEntry.get()
+                PlayerInfo[5]=blueTown.get()
+                PlayerInfo[6]=templateEntry.get()
                 #Button to change information abuot game:
-                resetButton=tk.Button(root, text="Reset", command=newGame, width=20, height=2)
-                resetButton_window=bg_canvas.create_window(0,0, anchor="nw", window=resetButton)
+                global photo
+                photo=tk.PhotoImage(file="h3background_button_edit.png")
+                #bg_canvas.create_image(0,0, anchor="nw", image=photo)
+                editButton=tk.Button(root, text="reset", image= photo, command=newGame, borderwidth=0)
+                editButton_window=bg_canvas.create_window(270,0, anchor="nw", window=editButton)
                 
         except ValueError:
             messagebox.showerror("Error!","You've added wrong gold value")
-    
+        
        
         
     submitButton=tk.Button(root, text="Submit", command=submit,width=20, height=2)#.grid(row=4, column=1, columnspan=2, padx=20, pady=10)
@@ -158,5 +199,12 @@ def newGame():
     root.resizable(False,False)
     root.mainloop()
     
-    
-newGame()
+#Title
+titleLabel= bg_canvas.create_text(300,100, text="Hello Player. \n Welcome in app for Heroes 3's streamers!", font=font.Font(family="Righteous", size=25), 
+                                fill="white", width=350, justify=tk.CENTER)
+
+NewGameButton=tk.Button(root, text="New Game", command=newGame, width=20, height=2)
+NewGameButton_window=bg_canvas.create_window(216,170, anchor="nw", window=NewGameButton)    
+  
+root.resizable(False,False)
+root.mainloop()
