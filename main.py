@@ -131,8 +131,11 @@ def newGame():
     #Submit button
     def submit():
         try:
-            if int(blueMoneyEntry.get())!=(-1)*int(redMoneyEntry.get()):
-                messagebox.showerror("Error!","Make sure that gold values are opposite")
+            if len(blueMoneyEntry.get())!=0 and len(redMoneyEntry.get())!=0:
+                if int(blueMoneyEntry.get())!=(-1)*int(redMoneyEntry.get()):
+                    messagebox.showerror("Error!","Make sure that gold values are opposite")
+            elif len(blueMoneyEntry.get())==0 and len(redMoneyEntry.get())==0:
+                messagebox.showerror("Error!","You've not added gold value")
             else:
                 submitEntry=tk.Entry(root, width=88)
                 submitEntry_window = bg_canvas.create_window(25,205, anchor="nw", window=submitEntry)
@@ -153,7 +156,11 @@ def newGame():
                                                 fill="white", width=250, justify=tk.CENTER)
                 redGoldShadow = bg_canvas.create_text(157,47, text=redMoneyEntry.get(), font=right26, 
                                                 fill="black", width=180, justify=tk.CENTER)
-                redGold = bg_canvas.create_text(155,45, text=redMoneyEntry.get(), font=right26, 
+                if len(redMoneyEntry.get())==0:
+                    redGold_text=str(int(blueMoneyEntry.get())*(-1))
+                else:
+                    redGold_text=redMoneyEntry.get()
+                redGold = bg_canvas.create_text(155,45, text=redGold_text, font=right26, 
                                                 fill="white", width=180, justify=tk.CENTER)
                 blueNameShadow = bg_canvas.create_text(464,15, text=blueEntry.get(), font=font.Font(family="Righteous", size=size_text(blueEntry.get())), 
                                                 fill="black", width=250, justify=tk.CENTER)
@@ -161,7 +168,11 @@ def newGame():
                                                 fill="white", width=250, justify=tk.CENTER)
                 blueGoldShadow = bg_canvas.create_text(452,47, text=blueMoneyEntry.get(), font=right26, 
                                                 fill="black", width=180, justify=tk.CENTER)
-                blueGold = bg_canvas.create_text(450,45, text=blueMoneyEntry.get(), font=right26, 
+                if len(blueMoneyEntry.get())==0:
+                    blueGold_text=str(int(redMoneyEntry.get())*(-1))
+                else:
+                    blueGold_text=blueMoneyEntry.get()
+                blueGold = bg_canvas.create_text(450,45, text=blueGold_text, font=right26, 
                                                 fill="white", width=180, justify=tk.CENTER)
                 templateShadow = bg_canvas.create_text(290,47, text=templateEntry.get(), font=right20, 
                                                 fill="black", width=180, justify=tk.CENTER)
@@ -195,6 +206,9 @@ def newGame():
         
     submitButton=tk.Button(root, text="Submit", command=submit,width=20, height=2)#.grid(row=4, column=1, columnspan=2, padx=20, pady=10)
     submitButton_window= bg_canvas.create_window(216,155, anchor="nw", window=submitButton)
+    
+    titleLabel_PS= bg_canvas.create_text(250,220, text="P.S.: If you want change informations about plyers after submit, you must click in 'VS'", font=font.Font(family="Righteous", size=10), 
+                                    fill="white", width=450, justify=tk.CENTER)
     
     root.resizable(False,False)
     root.mainloop()
