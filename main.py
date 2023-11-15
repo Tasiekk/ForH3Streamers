@@ -131,74 +131,78 @@ def newGame():
     #Submit button
     def submit():
         try:
-            if len(blueMoneyEntry.get())!=0 and len(redMoneyEntry.get())!=0:
+            if  len(blueMoneyEntry.get())==0 and len(redMoneyEntry.get())==0:
+                messagebox.showerror("Error!","You've not added gold value") 
+            elif len(blueMoneyEntry.get())!=0 or len(redMoneyEntry.get())!=0:
+                if len(blueMoneyEntry.get())==0:
+                    blueMoneyEntry.insert(0,str(int(redMoneyEntry.get())*(-1)))
+                if len(redMoneyEntry.get())==0:
+                    redMoneyEntry.insert(0,str(int(blueMoneyEntry.get())*(-1)))
                 if int(blueMoneyEntry.get())!=(-1)*int(redMoneyEntry.get()):
                     messagebox.showerror("Error!","Make sure that gold values are opposite")
-            elif len(blueMoneyEntry.get())==0 and len(redMoneyEntry.get())==0:
-                messagebox.showerror("Error!","You've not added gold value")
-            else:
-                submitEntry=tk.Entry(root, width=88)
-                submitEntry_window = bg_canvas.create_window(25,205, anchor="nw", window=submitEntry)
-               # submitEntry.insert(0, templateEntry.get() + " | " + redEntry.get() + " (red, " + redTown.get() + " , " + 
-               #redMoneyEntry.get() +")" + " vs " + blueEntry.get() + " (blue, " + blueTown.get() + " , " + 
-                #             blueMoneyEntry.get() + ")")
-                bg_canvas.delete('all')
-                bg_canvas.config(width=576)                                                #PLACING TOWNS IMAGES ON THE CANVAS
-                bg_canvas.config(height=60)
-                bg_canvas.create_image(0,0,image=bg_plot, anchor='nw')
-                redTownImage=tk.PhotoImage(file = redTown.get() + ".png")
-                redTownImageLabel = tk.Label(root, image=redTownImage, borderwidth=0)
-                redTownImageLabel.photo = redTownImage
-                redTownImageLabel_window = bg_canvas.create_window(32,30, anchor='nw', window=redTownImageLabel)
-                redNameShadow = bg_canvas.create_text(136,15, text=redEntry.get(), font=font.Font(family="Righteous", size=size_text(redEntry.get())), 
-                                                fill="black", width=250, justify=tk.CENTER)
-                redName = bg_canvas.create_text(134,13, text=redEntry.get(), font=font.Font(family="Righteous", size=size_text(redEntry.get())), 
-                                                fill="white", width=250, justify=tk.CENTER)
-                redGoldShadow = bg_canvas.create_text(157,47, text=redMoneyEntry.get(), font=right26, 
-                                                fill="black", width=180, justify=tk.CENTER)
-                if len(redMoneyEntry.get())==0:
-                    redGold_text=str(int(blueMoneyEntry.get())*(-1))
                 else:
-                    redGold_text=redMoneyEntry.get()
-                redGold = bg_canvas.create_text(155,45, text=redGold_text, font=right26, 
-                                                fill="white", width=180, justify=tk.CENTER)
-                blueNameShadow = bg_canvas.create_text(464,15, text=blueEntry.get(), font=font.Font(family="Righteous", size=size_text(blueEntry.get())), 
-                                                fill="black", width=250, justify=tk.CENTER)
-                blueName = bg_canvas.create_text(462,13, text=blueEntry.get(), font=font.Font(family="Righteous", size=size_text(blueEntry.get())), 
-                                                fill="white", width=250, justify=tk.CENTER)
-                blueGoldShadow = bg_canvas.create_text(452,47, text=blueMoneyEntry.get(), font=right26, 
-                                                fill="black", width=180, justify=tk.CENTER)
-                if len(blueMoneyEntry.get())==0:
-                    blueGold_text=str(int(redMoneyEntry.get())*(-1))
-                else:
-                    blueGold_text=blueMoneyEntry.get()
-                blueGold = bg_canvas.create_text(450,45, text=blueGold_text, font=right26, 
-                                                fill="white", width=180, justify=tk.CENTER)
-                templateShadow = bg_canvas.create_text(290,47, text=templateEntry.get(), font=right20, 
-                                                fill="black", width=180, justify=tk.CENTER)
-                template = bg_canvas.create_text(288,45, text=templateEntry.get(), font=right20, 
-                                                fill="white", width=180, justify=tk.CENTER)
-                blueTownImage=tk.PhotoImage(file = blueTown.get() + ".png")
-                blueTownImageLabel = tk.Label(root, image=blueTownImage, borderwidth=0)
-                blueTownImageLabel.photo = blueTownImage
-                blueTownImageLabel_window = bg_canvas.create_window(498,30, anchor='nw', window=blueTownImageLabel)
-                #This variable information about Player for default value to change if we choose button "Edit"
-                global PlayerInfo
-                PlayerInfo=["","","","","","",""]
-                PlayerInfo[0]=redEntry.get()
-                PlayerInfo[1]=redMoneyEntry.get()
-                PlayerInfo[2]=redTown.get()
-                PlayerInfo[3]=blueEntry.get()
-                PlayerInfo[4]=blueMoneyEntry.get()
-                PlayerInfo[5]=blueTown.get()
-                PlayerInfo[6]=templateEntry.get()
-                #Button to change information abuot game:
-                global photo
-                photo=tk.PhotoImage(file="h3background_button_edit.png")
-                #bg_canvas.create_image(0,0, anchor="nw", image=photo)
-                editButton=tk.Button(root, text="reset", image= photo, command=newGame, borderwidth=0)
-                editButton_window=bg_canvas.create_window(270,0, anchor="nw", window=editButton)
-                
+                    submitEntry=tk.Entry(root, width=88)
+                    submitEntry_window = bg_canvas.create_window(25,205, anchor="nw", window=submitEntry)
+                   # submitEntry.insert(0, templateEntry.get() + " | " + redEntry.get() + " (red, " + redTown.get() + " , " + 
+                   #redMoneyEntry.get() +")" + " vs " + blueEntry.get() + " (blue, " + blueTown.get() + " , " + 
+                    #             blueMoneyEntry.get() + ")")
+                    bg_canvas.delete('all')
+                    bg_canvas.config(width=576)                                                #PLACING TOWNS IMAGES ON THE CANVAS
+                    bg_canvas.config(height=60)
+                    bg_canvas.create_image(0,0,image=bg_plot, anchor='nw')
+                    redTownImage=tk.PhotoImage(file = redTown.get() + ".png")
+                    redTownImageLabel = tk.Label(root, image=redTownImage, borderwidth=0)
+                    redTownImageLabel.photo = redTownImage
+                    redTownImageLabel_window = bg_canvas.create_window(32,30, anchor='nw', window=redTownImageLabel)
+                    redNameShadow = bg_canvas.create_text(136,15, text=redEntry.get(), font=font.Font(family="Righteous", size=size_text(redEntry.get())), 
+                                                    fill="black", width=250, justify=tk.CENTER)
+                    redName = bg_canvas.create_text(134,13, text=redEntry.get(), font=font.Font(family="Righteous", size=size_text(redEntry.get())), 
+                                                    fill="white", width=250, justify=tk.CENTER)
+                    redGoldShadow = bg_canvas.create_text(157,47, text=redMoneyEntry.get(), font=right26, 
+                                                    fill="black", width=180, justify=tk.CENTER)
+                    #if len(redMoneyEntry.get())==0:
+                    #    redGold_text=str(int(blueMoneyEntry.get())*(-1))
+                    #else:
+                    #    redGold_text=redMoneyEntry.get()
+                    redGold = bg_canvas.create_text(155,45, text=redMoneyEntry.get(), font=right26, 
+                                                    fill="white", width=180, justify=tk.CENTER)
+                    blueNameShadow = bg_canvas.create_text(464,15, text=blueEntry.get(), font=font.Font(family="Righteous", size=size_text(blueEntry.get())), 
+                                                    fill="black", width=250, justify=tk.CENTER)
+                    blueName = bg_canvas.create_text(462,13, text=blueEntry.get(), font=font.Font(family="Righteous", size=size_text(blueEntry.get())), 
+                                                    fill="white", width=250, justify=tk.CENTER)
+                    blueGoldShadow = bg_canvas.create_text(452,47, text=blueMoneyEntry.get(), font=right26, 
+                                                    fill="black", width=180, justify=tk.CENTER)
+                    #if len(blueMoneyEntry.get())==0:
+                    #    blueGold_text=str(int(redMoneyEntry.get())*(-1))
+                    #else:
+                    #    blueGold_text=blueMoneyEntry.get()
+                    blueGold = bg_canvas.create_text(450,45, text=blueMoneyEntry.get(), font=right26, 
+                                                    fill="white", width=180, justify=tk.CENTER)
+                    templateShadow = bg_canvas.create_text(290,47, text=templateEntry.get(), font=right20, 
+                                                    fill="black", width=180, justify=tk.CENTER)
+                    template = bg_canvas.create_text(288,45, text=templateEntry.get(), font=right20, 
+                                                    fill="white", width=180, justify=tk.CENTER)
+                    blueTownImage=tk.PhotoImage(file = blueTown.get() + ".png")
+                    blueTownImageLabel = tk.Label(root, image=blueTownImage, borderwidth=0)
+                    blueTownImageLabel.photo = blueTownImage
+                    blueTownImageLabel_window = bg_canvas.create_window(498,30, anchor='nw', window=blueTownImageLabel)
+                    #This variable information about Player for default value to change if we choose button "Edit"
+                    global PlayerInfo
+                    PlayerInfo=["","","","","","",""]
+                    PlayerInfo[0]=redEntry.get()
+                    PlayerInfo[1]=redMoneyEntry.get()
+                    PlayerInfo[2]=redTown.get()
+                    PlayerInfo[3]=blueEntry.get()
+                    PlayerInfo[4]=blueMoneyEntry.get()
+                    PlayerInfo[5]=blueTown.get()
+                    PlayerInfo[6]=templateEntry.get()
+                    #Button to change information abuot game:
+                    global photo
+                    photo=tk.PhotoImage(file="h3background_button_edit.png")
+                    #bg_canvas.create_image(0,0, anchor="nw", image=photo)
+                    editButton=tk.Button(root, text="reset", image= photo, command=newGame, borderwidth=0)
+                    editButton_window=bg_canvas.create_window(270,0, anchor="nw", window=editButton)
+                    
         except ValueError:
             messagebox.showerror("Error!","You've added wrong gold value")
         
