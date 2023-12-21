@@ -204,21 +204,21 @@ def newGame():
                     editButton_window=bg_canvas.create_window(270,0, anchor="nw", window=editButton)
                     
         except ValueError:
-            messagebox.showerror("Error!","You've added wrong gold value")
+            messagebox.showerror("Error!","You've added a wrong gold value")
         
        
         
     submitButton=tk.Button(root, text="Submit", command=submit,width=20, height=2)#.grid(row=4, column=1, columnspan=2, padx=20, pady=10)
     submitButton_window= bg_canvas.create_window(216,155, anchor="nw", window=submitButton)
     
-    titleLabel_PS= bg_canvas.create_text(250,220, text="P.S.: If you want change informations about plyers after submit, you must click in 'VS'", font=font.Font(family="Righteous", size=10), 
+    titleLabel_PS= bg_canvas.create_text(250,220, text="P.S.: If you want to change information about players (after clicking submit), you should click 'VS'", font=font.Font(family="Righteous", size=10), 
                                     fill="white", width=450, justify=tk.CENTER)
     
     root.resizable(False,False)
     root.mainloop()
     
 #Title
-titleLabel= bg_canvas.create_text(300,100, text="Hello Player. \n Welcome in app for Heroes 3's streamers!", font=font.Font(family="Righteous", size=25), 
+titleLabel= bg_canvas.create_text(300,100, text="Hello Player. \n Welcome to the app for Heroes 3's streamers!", font=font.Font(family="Righteous", size=25), 
                                 fill="white", width=350, justify=tk.CENTER)
 
 NewGameButton=tk.Button(root, text="New Game", command=newGame, width=20, height=2)
